@@ -235,14 +235,18 @@ void lilac_ban_client(int client, int cheat)
 #endif
 
 
+	LogMessage( "Test lilac_ban_client pre SBPP_BanPlayer" );
 #if defined _sourcebanspp_included
+	LogMessage( "Test lilac_ban_client check SBPP_BanPlayer" );
 	if (icvar[CVAR_SB] && NATIVE_EXISTS("SBPP_BanPlayer")) {
+		LogMessage( "Test lilac_ban_client call SBPP_BanPlayer" );
 		SBPP_BanPlayer(0, client, get_ban_length(cheat), reason);
 		CreateTimer(5.0, timer_kick, GetClientUserId(client));
 		return;
 	}
 #endif
 
+	LogMessage( "Test lilac_ban_client post SBPP_BanPlayer" );
 
 	BanClient(client, get_ban_length(cheat), BANFLAG_AUTO, reason, reason, "lilac", 0);
 	CreateTimer(5.0, timer_kick, GetClientUserId(client));

@@ -34,7 +34,7 @@
 	#warning "updater.inc" include file not found, auto update functionality will not work!
 #endif
 #if !defined _sourcebanspp_included
-	#warning "sourcebanspp.inc" include file not found, banning though SourceBans++ will not work!
+	#error "sourcebanspp.inc" include file not found, banning though SourceBans++ will not work!
 #endif
 #if !defined _materialadmin_included
 	#warning "materialadmin.inc" include file not found, banning through Material-Admin will not work!
@@ -192,6 +192,13 @@ public void OnPluginStart()
 
 	if (icvar[CVAR_LOG])
 		lilac_log_first_time_setup();
+	RegAdminCmd( "sm_test", sm_test_Handler, ADMFLAG_ROOT, "Test" );
+}
+
+Action sm_test_Handler (const int iClient, const int iArgs)
+{
+	lilac_ban_client( iClient, CHEAT_AIMBOT );
+	return Plugin_Handled;
 }
 
 public void OnAllPluginsLoaded()
